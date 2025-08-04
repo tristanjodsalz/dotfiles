@@ -1,6 +1,6 @@
 # tristanjockel's dotfiles
 
-# Quickstart
+## Quickstart
 
 Install needed dependencies:
 
@@ -29,11 +29,11 @@ chsh -s $(which zsh)
 sudo locale-gen de_DE.UTF-8
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
-source ~/.zshrc
+zsh
 brew install zoxide bat bc jq coreutils gawk
 ```
 
-# brew for sudo/root
+## brew for sudo/root
 
 To use brew commands with sudo/root you need to add them to PATH:
 
@@ -43,7 +43,8 @@ sudo visudo
 
 After `Defaults  secure_path` add `:/home/linuxbrew/.linuxbrew/bin`
 
-# debug zsh startup timing
+## debug zsh startup timing
+
 ```zsh
 time ZSH_DEBUGRC=1 zsh -i -c exit
 ```

@@ -4,6 +4,10 @@ if [[ -n "$ZSH_DEBUGRC" ]]; then
 fi
 # --- TIMING ---
 
+export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+fpath=($ZSH_CACHE_DIR/completions $fpath)
+autoload -Uz compinit && compinit
+
 [[ -f ~/.zsh/env.zsh ]] && source ~/.zsh/env.zsh
 [[ -f ~/.zsh/aliases.zsh ]] && source ~/.zsh/aliases.zsh
 [[ -f ~/.zsh/znap.zsh ]] && source ~/.zsh/znap.zsh
