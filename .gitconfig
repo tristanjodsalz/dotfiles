@@ -4,6 +4,7 @@
 [user]
 	email = tristan.jockel@icloud.com
 	name = Tristan Jockel
+	# TODO
 	signingKey = /home/tristanjockel/.ssh/id_ecdsa_sk_github
 
 [gpg]
@@ -11,10 +12,3 @@
 
 [commit]
 	gpgsign = true
-
-[maintenance]
-	repo = /home/tristanjockel/.znap-repos/znap
-	repo = /home/tristanjockel/.znap-repos/marlonrichert/zsh-autocomplete
-	repo = /home/tristanjockel/.znap-repos/ohmyzsh/ohmyzsh
-	repo = /home/tristanjockel/.znap-repos/zsh-users/zsh-autosuggestions
-	repo = /home/tristanjockel/.znap-repos/zsh-users/zsh-completions

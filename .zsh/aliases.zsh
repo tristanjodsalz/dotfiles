@@ -1,5 +1,7 @@
 alias sudo='sudo '
-alias lla="LC_ALL=C ls -Al --color"
-alias ls="LC_ALL=C ls --color"
-alias ll="LC_ALL=C ls -l --color"
+
+alias ls="eza --icons"
+alias ll="eza -l --color"
+alias lla="eza -Al --color"
+
 alias c="clear"
