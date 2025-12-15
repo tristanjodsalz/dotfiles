@@ -20,14 +20,10 @@ znap source zsh-users/zsh-completions
 
 
 # other stuff
-znap eval brew-shellenv '/home/linuxbrew/.linuxbrew/bin/brew shellenv'
 znap eval zoxide 'zoxide init zsh --cmd cd'
 
+znap source ohmyzsh/ohmyzsh plugins/mise
+znap source ohmyzsh/ohmyzsh plugins/ssh-agent
+znap source ohmyzsh/ohmyzsh plugins/rust
 
-if [ -f ~/.zsh/config/full ]; then
-    znap source ohmyzsh/ohmyzsh plugins/mise
-    znap source ohmyzsh/ohmyzsh plugins/ssh-agent
-    znap source ohmyzsh/ohmyzsh plugins/rust
-
-    znap eval step_ssh_completions ~/.zsh/step_ssh_completions.zsh
-fi
+znap eval step_ssh_completions ~/.zsh/step_ssh_completions.zsh

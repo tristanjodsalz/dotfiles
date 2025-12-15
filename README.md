@@ -5,43 +5,65 @@
 Install needed dependencies:
 
 ```bash
-sudo apt install -y git stow zsh
+sudo pacman -S git stow zsh tmux sudo mise openssh eza zoxide bat
 sudo curl -sS https://starship.rs/install.sh | sudo sh
+git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 ```
 
 Clone the repository:
 
 ```bash
-git clone https://github.com/Minecrafter5K/dotfiles.git
+git clone https://github.com/tristanjodsalz/dotfiles.git .dotfiles
 ```
 
 Link all files:
 
 ```bash
-cd dotfiles
+cd .dotfiles
 stow .
 ```
 
 Some setup:
 
 ```zsh
-chsh -s $(which zsh)
-sudo locale-gen de_DE.UTF-8
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
-zsh
-brew install zoxide bat bc jq coreutils gawk
+brew install zoxide bat
 ```
 
-## brew for sudo/root
+## AUR Packages
 
-To use brew commands with sudo/root you need to add them to PATH:
+To install yay:
 
 ```zsh
-sudo visudo
+sudo pacman -S --needed git base-devel
+cd ~/.local/shared
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
 ```
 
-After `Defaults  secure_path` add `:/home/linuxbrew/.linuxbrew/bin`
+Some important applications:
+
+```zsh
+yay -S zen-browser-bin
+```
+
+```zsh
+yay -S visual-studio-code-bin
+```
+
+```zsh
+yay -S cider
+```
+
+## Desktop Stuff
+
+```zsh
+sudo pacman -S hyprland kitty quickshell ttf-jetbrains-mono-nerd
+sudo pacman -S hypridle hyrplock hyprpaper hyprpolkitagent hyprpicker hyprlauncher
+sudo yay -S bibata-cursor-theme-bin
+sudo pacman -S xdg-desktop-portal xdg-desktop-portal-hyprland nwg-displays gnome-keyring libsecret
+sudo pacman -S easyeffects
+```
 
 ## debug zsh startup timing
 

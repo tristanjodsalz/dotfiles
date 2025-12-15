@@ -4,6 +4,7 @@ if [[ -n "$ZSH_DEBUGRC" ]]; then
 fi
 # --- TIMING ---
 
+mkdir -p /home/tristanjockel/.cache/zsh/completions
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
 fpath=($ZSH_CACHE_DIR/completions $fpath)
 autoload -Uz compinit && compinit
@@ -12,13 +13,13 @@ autoload -Uz compinit && compinit
 [[ -f ~/.zsh/aliases.zsh ]] && source ~/.zsh/aliases.zsh
 [[ -f ~/.zsh/znap.zsh ]] && source ~/.zsh/znap.zsh
 
-
 # keybinds
 ## ctrl/navigation
 bindkey '^[[1;5D' backward-word
 bindkey '^[[1;5C' forward-word
 bindkey '^H' backward-kill-word
-bindkey '5~' kill-word
+bindkey '^[[3;5~' kill-word
+bindkey '^[[3~' delete-char
 
 ## zsh-autocomplete
 bindkey -M menuselect '^M'              .accept-line
