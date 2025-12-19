@@ -5,3 +5,5 @@ alias ll="eza -l --color"
 alias lla="eza -Al --color"
 
 alias c="clear"
+
+alias step=step-cli
