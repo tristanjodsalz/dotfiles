@@ -5,9 +5,10 @@ import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
 
-PanelWindow {
+ShellRoot {
     id: root
-
+    property int cornerRadius: 21
+    property color cornerColor: "black"
     // Theme
     property color colBg: "#1a1b26"
     property color colFg: "#a9b1d6"
@@ -18,72 +19,83 @@ PanelWindow {
     property string fontFamily: "JetBrainsMono Nerd Font"
     property int fontSize: 14
 
-    // System data
-    property int cpuUsage: 0
-    property int memUsage: 0
-    property var lastCpuIdle: 0
-    property var lastCpuTotal: 0
+    // Instantiate the 4 corners
+    RoundCorner { corner: RoundCorner.Corner.TopLeft; radius: cornerRadius; color: cornerColor }
+    RoundCorner { corner: RoundCorner.Corner.TopRight; radius: cornerRadius; color: cornerColor }
+    RoundCorner { corner: RoundCorner.Corner.BottomLeft; radius: cornerRadius; color: cornerColor }
+    RoundCorner { corner: RoundCorner.Corner.BottomRight; radius: cornerRadius; color: cornerColor }
 
-    // Processes and timers here...
+    Item {
+        RoundCorner {
+            corner: RoundCorner.Corner.TopLeft
+            radius: cornerRadius
+            color: "#1a1b26"
+            offset: bar.implicitWidth
+        }
+        RoundCorner {
+            corner: RoundCorner.Corner.BottomLeft
+            radius: cornerRadius
+            color: "#1a1b26"
+            offset: bar.implicitWidth
+        }
+        PanelWindow {
+            id: bar
 
-    anchors.top: true
-    anchors.left: true
-    anchors.right: true
-    implicitHeight: 30
-    color: root.colBg
 
-    RowLayout {
-        anchors.fill: parent
-        anchors.margins: 8
-        spacing: 8
+            // System data
+            property int cpuUsage: 0
+            property int memUsage: 0
+            property var lastCpuIdle: 0
+            property var lastCpuTotal: 0
 
-        // Workspaces
-        Repeater {
-            model: 9
-            Text {
-                property var ws: Hyprland.workspaces.values.find(w => w.id === index + 1)
-                property bool isActive: Hyprland.focusedWorkspace?.id === (index + 1)
-                text: index + 1
-                color: isActive ? root.colCyan : (ws ? root.colBlue : root.colMuted)
-                font { family: root.fontFamily; pixelSize: root.fontSize; bold: true }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: Hyprland.dispatch("workspace " + (index + 1))
+            // Processes and timers here...
+
+            anchors.top: true
+            anchors.left: true
+            anchors.bottom: true
+            implicitWidth: 40
+            color: root.colBg
+
+            ColumnLayout {
+                anchors.fill: parent
+                anchors.margins: 8
+                spacing: 8
+
+                Item { Layout.fillHeight: true }
+
+                // Workspaces
+                Repeater {
+                    model: 9
+                    Text {
+                        property var ws: Hyprland.workspaces.values.find(w => w.id === index + 1)
+                        property bool isActive: Hyprland.focusedWorkspace?.id === (index + 1)
+                        text: index + 1
+                        color: isActive ? root.colCyan : (ws ? root.colBlue : root.colMuted)
+                        font { family: root.fontFamily; pixelSize: root.fontSize; bold: true }
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: Hyprland.dispatch("workspace " + (index + 1))
+                        }
+                    }
                 }
-            }
-        }
 
-        Item { Layout.fillWidth: true }
+                Item { Layout.fillHeight: true }
 
-        // CPU
-        Text {
-            text: "CPU: " + cpuUsage + "%"
-            color: root.colYellow
-            font { family: root.fontFamily; pixelSize: root.fontSize; bold: true }
-        }
+                Rectangle { height: 1; width: 16; color: root.colMuted }
 
-        Rectangle { width: 1; height: 16; color: root.colMuted }
-
-        // Memory
-        Text {
-            text: "Mem: " + memUsage + "%"
-            color: root.colCyan
-            font { family: root.fontFamily; pixelSize: root.fontSize; bold: true }
-        }
-
-        Rectangle { width: 1; height: 16; color: root.colMuted }
-
-        // Clock
-        Text {
-            id: clock
-            color: root.colBlue
-            font { family: root.fontFamily; pixelSize: root.fontSize; bold: true }
-            text: Qt.formatDateTime(new Date(), "ddd, MMM dd - HH:mm")
-            Timer {
-                interval: 1000
-                running: true
-                repeat: true
-                onTriggered: clock.text = Qt.formatDateTime(new Date(), "ddd, MMM dd - HH:mm")
+                // Clock
+                Text {
+                    id: clock
+                    color: root.colBlue
+                    font { family: root.fontFamily; pixelSize: root.fontSize; bold: true }
+                    text: Qt.formatDateTime(new Date(), "ddd, MMM dd - HH:mm")
+                    Timer {
+                        interval: 1000
+                        running: true
+                        repeat: true
+                        onTriggered: clock.text = Qt.formatDateTime(new Date(), "ddd, MMM dd - HH:mm")
+                    }
+                }
             }
         }
     }
